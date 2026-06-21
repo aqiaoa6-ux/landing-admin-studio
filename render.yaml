@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: landing-admin-studio
+    runtime: node
+    plan: free
+    rootDir: .
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        value: 888888
+      - key: ADMIN_JWT_SECRET
+        generateValue: true
+      - key: DATA_ROOT
+        value: /var/data/landing-admin-studio
+    disk:
+      name: landing-admin-data
+      mountPath: /var/data
+      sizeGB: 1

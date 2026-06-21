@@ -1,0 +1,5 @@
+node_modules
+dist
+data/site-config.json
+uploads/*
+!uploads/.gitkeep
