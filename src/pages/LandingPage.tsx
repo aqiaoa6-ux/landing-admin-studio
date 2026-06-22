@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
 import { api } from "../lib/api";
 import { useSiteStore } from "../store/site-store";
 import { LandingPreview } from "../components/LandingPreview";
@@ -6,6 +7,7 @@ import { LandingPreview } from "../components/LandingPreview";
 export function LandingPage(): JSX.Element {
   const { config, loading, setConfig, setLoading } = useSiteStore();
   const [error, setError] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -35,13 +37,22 @@ export function LandingPage(): JSX.Element {
         <a className="nav-logo" href="#top">
           {config.siteName}
         </a>
-        <nav>
+        <button
+          aria-expanded={menuOpen}
+          aria-label={menuOpen ? "关闭菜单" : "打开菜单"}
+          className="nav-menu-toggle"
+          onClick={() => setMenuOpen((open) => !open)}
+          type="button"
+        >
+          {menuOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
+        <nav className={menuOpen ? "nav-links nav-links--open" : "nav-links"}>
           {config.navItems.map((item) => (
-            <a href={`#${item.anchor}`} key={`${item.anchor}-${item.label}`}>
+            <a href={`#${item.anchor}`} key={`${item.anchor}-${item.label}`} onClick={() => setMenuOpen(false)}>
               {item.label}
             </a>
           ))}
-          <a className="nav-admin" href="/admin/login">
+          <a className="nav-admin" href="/admin/login" onClick={() => setMenuOpen(false)}>
             后台登录
           </a>
         </nav>

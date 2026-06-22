@@ -75,6 +75,24 @@ img {
   align-items: center;
 }
 
+.nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.72);
+  color: #dbeafe;
+}
+
 .nav-logo,
 .top-nav nav a {
   color: var(--muted);
@@ -529,12 +547,39 @@ label textarea {
 @media (max-width: 720px) {
   .top-nav {
     padding: 16px 18px;
-    flex-direction: column;
     gap: 12px;
+    align-items: center;
   }
 
-  .top-nav nav {
-    flex-wrap: wrap;
+  .nav-menu-toggle {
+    display: inline-flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 18px;
+    min-width: 180px;
+    padding: 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(7, 17, 31, 0.96);
+    box-shadow: var(--shadow);
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .nav-links--open {
+    display: flex;
+  }
+
+  .nav-links a {
+    text-align: center;
+  }
+
+  .nav-admin {
     justify-content: center;
   }
 
