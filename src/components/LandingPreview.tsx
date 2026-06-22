@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import {
   BadgeDollarSign,
   ChevronRight,
@@ -25,11 +25,29 @@ interface LandingPreviewProps {
 }
 
 export function LandingPreview({ config, compact = false }: LandingPreviewProps): JSX.Element {
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const themeStyle = {
     ["--primary" as string]: config.theme.primary,
     ["--accent" as string]: config.theme.accent,
     ["--bg" as string]: config.theme.secondary,
   } as CSSProperties;
+
+  async function handleContactClick(
+    event: React.MouseEvent<HTMLAnchorElement>,
+    item: SiteConfig["contacts"][number],
+  ): Promise<void> {
+    if (item.type === "link") return;
+    event.preventDefault();
+    try {
+      await navigator.clipboard.writeText(item.value);
+      setCopiedId(item.id);
+      window.setTimeout(() => {
+        setCopiedId((current) => (current === item.id ? null : current));
+      }, 1600);
+    } catch {
+      setCopiedId(null);
+    }
+  }
 
   return (
     <div className={`landing-shell ${compact ? "landing-shell--compact" : ""}`} style={themeStyle}>
@@ -131,12 +149,22 @@ export function LandingPreview({ config, compact = false }: LandingPreviewProps)
         />
         <div className="contact-grid">
           {config.contacts.map((item) => (
-            <a className="contact-card" href={item.url || "#"} key={item.id} target="_blank" rel="noreferrer">
+            <a
+              className="contact-card"
+              href={item.type === "link" ? item.url || "#" : "#"}
+              key={item.id}
+              onClick={(event) => void handleContactClick(event, item)}
+              rel="noreferrer"
+              target={item.type === "link" ? "_blank" : undefined}
+            >
               <div>
                 <span>{item.label}</span>
                 <strong>{item.value}</strong>
               </div>
-              <Link2 size={18} />
+              <div className="contact-action">
+                <span>{item.type === "link" ? "跳转" : copiedId === item.id ? "已复制" : "复制"}</span>
+                <Link2 size={18} />
+              </div>
             </a>
           ))}
         </div>
