@@ -93,6 +93,14 @@ img {
   color: #dbeafe;
 }
 
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  border: 0;
+  background: transparent;
+}
+
 .nav-logo,
 .top-nav nav a {
   color: var(--muted);
@@ -577,14 +585,19 @@ label textarea {
     border: 1px solid rgba(148, 163, 184, 0.18);
     background: rgba(7, 17, 31, 0.96);
     box-shadow: var(--shadow);
-    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
   }
 
   .nav-links--open {
-    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .nav-links a {

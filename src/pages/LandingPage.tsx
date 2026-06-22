@@ -10,6 +10,14 @@ export function LandingPage(): JSX.Element {
   const [menuOpen, setMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement | null>(null);
 
+  function closeMenu(): void {
+    setMenuOpen(false);
+  }
+
+  function toggleMenu(): void {
+    setMenuOpen((open) => !open);
+  }
+
   useEffect(() => {
     let mounted = true;
 
@@ -33,28 +41,31 @@ export function LandingPage(): JSX.Element {
   }, [setConfig, setLoading]);
 
   useEffect(() => {
-    function handlePointerDown(event: MouseEvent): void {
+    function handlePointerDown(event: MouseEvent | TouchEvent): void {
       if (!menuOpen) return;
       const target = event.target;
       if (!(target instanceof Node)) return;
       if (navRef.current?.contains(target)) return;
-      setMenuOpen(false);
+      closeMenu();
     }
 
     function handleEscape(event: KeyboardEvent): void {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape") closeMenu();
     }
 
     document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown, { passive: true });
     document.addEventListener("keydown", handleEscape);
     return () => {
       document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
       document.removeEventListener("keydown", handleEscape);
     };
   }, [menuOpen]);
 
   return (
     <div className="page-shell">
+      {menuOpen ? <button aria-label="关闭菜单" className="nav-backdrop" onClick={closeMenu} type="button" /> : null}
       <header className="top-nav" ref={navRef}>
         <a className="nav-logo" href="#top">
           {config.siteName}
@@ -63,18 +74,18 @@ export function LandingPage(): JSX.Element {
           aria-expanded={menuOpen}
           aria-label={menuOpen ? "关闭菜单" : "打开菜单"}
           className="nav-menu-toggle"
-          onClick={() => setMenuOpen((open) => !open)}
+          onClick={toggleMenu}
           type="button"
         >
           {menuOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
         <nav className={menuOpen ? "nav-links nav-links--open" : "nav-links"}>
           {config.navItems.map((item) => (
-            <a href={`#${item.anchor}`} key={`${item.anchor}-${item.label}`} onClick={() => setMenuOpen(false)}>
+            <a href={`#${item.anchor}`} key={`${item.anchor}-${item.label}`} onClick={closeMenu}>
               {item.label}
             </a>
           ))}
-          <a className="nav-admin" href="/admin/login" onClick={() => setMenuOpen(false)}>
+          <a className="nav-admin" href="/admin/login" onClick={closeMenu}>
             后台登录
           </a>
         </nav>
