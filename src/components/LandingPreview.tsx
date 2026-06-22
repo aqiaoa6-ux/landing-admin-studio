@@ -57,10 +57,6 @@ export function LandingPreview({ config, compact = false }: LandingPreviewProps)
         </div>
         <div className="hero-visual card-surface">
           <img src={config.hero.heroImageUrl} alt="招商视觉图" />
-          <div className="hero-badge">
-            <span>快速上线</span>
-            <strong>前台 + 后台 一体化</strong>
-          </div>
         </div>
       </section>
 
