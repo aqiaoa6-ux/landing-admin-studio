@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { api } from "../lib/api";
 import { useSiteStore } from "../store/site-store";
@@ -8,6 +8,7 @@ export function LandingPage(): JSX.Element {
   const { config, loading, setConfig, setLoading } = useSiteStore();
   const [error, setError] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -31,9 +32,30 @@ export function LandingPage(): JSX.Element {
     };
   }, [setConfig, setLoading]);
 
+  useEffect(() => {
+    function handlePointerDown(event: MouseEvent): void {
+      if (!menuOpen) return;
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (navRef.current?.contains(target)) return;
+      setMenuOpen(false);
+    }
+
+    function handleEscape(event: KeyboardEvent): void {
+      if (event.key === "Escape") setMenuOpen(false);
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [menuOpen]);
+
   return (
     <div className="page-shell">
-      <header className="top-nav">
+      <header className="top-nav" ref={navRef}>
         <a className="nav-logo" href="#top">
           {config.siteName}
         </a>
