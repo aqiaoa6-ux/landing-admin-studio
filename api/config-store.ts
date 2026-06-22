@@ -30,6 +30,12 @@ export function readSiteConfig(): SiteConfig {
       ...DEFAULT_SITE_CONFIG,
       ...parsed,
       hero: { ...DEFAULT_SITE_CONFIG.hero, ...parsed.hero },
+      sections: {
+        brands: { ...DEFAULT_SITE_CONFIG.sections.brands, ...parsed.sections?.brands },
+        support: { ...DEFAULT_SITE_CONFIG.sections.support, ...parsed.sections?.support },
+        cases: { ...DEFAULT_SITE_CONFIG.sections.cases, ...parsed.sections?.cases },
+        contact: { ...DEFAULT_SITE_CONFIG.sections.contact, ...parsed.sections?.contact },
+      },
       theme: { ...DEFAULT_SITE_CONFIG.theme, ...parsed.theme },
       navItems: parsed.navItems?.length ? parsed.navItems : DEFAULT_SITE_CONFIG.navItems,
       contacts: parsed.contacts?.length ? parsed.contacts : DEFAULT_SITE_CONFIG.contacts,

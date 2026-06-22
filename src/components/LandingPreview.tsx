@@ -62,9 +62,9 @@ export function LandingPreview({ config, compact = false }: LandingPreviewProps)
 
       <section className="content-section" id="brands">
         <SectionTitle
-          eyebrow="品牌矩阵"
-          title="多品牌统一承接，页面入口可随时替换"
-          description="品牌卡支持后台增删改和跳转地址配置，适合不同阶段灵活投放。"
+          eyebrow={config.sections.brands.eyebrow}
+          title={config.sections.brands.title}
+          description={config.sections.brands.description}
         />
         <div className="brand-grid">
           {config.brands.map((brand) => (
@@ -82,9 +82,9 @@ export function LandingPreview({ config, compact = false }: LandingPreviewProps)
 
       <section className="content-section" id="support">
         <SectionTitle
-          eyebrow="代理扶持"
-          title="从起盘到放量，给到能直接使用的承接方案"
-          description="不是只给招商话术，而是把素材、奖励、服务和后续转化一起交付。"
+          eyebrow={config.sections.support.eyebrow}
+          title={config.sections.support.title}
+          description={config.sections.support.description}
         />
         <div className="support-grid">
           {config.supportItems.map((item) => {
@@ -104,9 +104,9 @@ export function LandingPreview({ config, compact = false }: LandingPreviewProps)
 
       <section className="content-section" id="cases">
         <SectionTitle
-          eyebrow="佣金案例"
-          title="把结果展示出来，信任转化更直接"
-          description="佣金案例支持后台上传新图或替换文案，方便持续更新真实成交素材。"
+          eyebrow={config.sections.cases.eyebrow}
+          title={config.sections.cases.title}
+          description={config.sections.cases.description}
         />
         <div className="case-grid">
           {config.cases.map((item) => (
@@ -125,9 +125,9 @@ export function LandingPreview({ config, compact = false }: LandingPreviewProps)
 
       <section className="contact-section card-surface" id="contact">
         <SectionTitle
-          eyebrow="联系我们"
-          title="联系方式、注册链接、邀请码全部后台可配"
-          description="前台自动读取最新配置，保存后无需重新改代码。"
+          eyebrow={config.sections.contact.eyebrow}
+          title={config.sections.contact.title}
+          description={config.sections.contact.description}
         />
         <div className="contact-grid">
           {config.contacts.map((item) => (

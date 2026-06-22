@@ -183,6 +183,42 @@ export function AdminPage(): JSX.Element {
         </section>
 
         <section className="panel-section card-surface">
+          <h2>板块文案</h2>
+          <div className="repeat-card">
+            <strong>品牌矩阵</strong>
+            <div className="form-grid">
+              <label><span>角标</span><input value={config.sections.brands.eyebrow} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, brands: { ...c.sections.brands, eyebrow: e.target.value } } }))} /></label>
+              <label><span>主标题</span><input value={config.sections.brands.title} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, brands: { ...c.sections.brands, title: e.target.value } } }))} /></label>
+            </div>
+            <label className="full-width"><span>描述</span><textarea value={config.sections.brands.description} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, brands: { ...c.sections.brands, description: e.target.value } } }))} /></label>
+          </div>
+          <div className="repeat-card">
+            <strong>代理扶持</strong>
+            <div className="form-grid">
+              <label><span>角标</span><input value={config.sections.support.eyebrow} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, support: { ...c.sections.support, eyebrow: e.target.value } } }))} /></label>
+              <label><span>主标题</span><input value={config.sections.support.title} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, support: { ...c.sections.support, title: e.target.value } } }))} /></label>
+            </div>
+            <label className="full-width"><span>描述</span><textarea value={config.sections.support.description} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, support: { ...c.sections.support, description: e.target.value } } }))} /></label>
+          </div>
+          <div className="repeat-card">
+            <strong>佣金案例</strong>
+            <div className="form-grid">
+              <label><span>角标</span><input value={config.sections.cases.eyebrow} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, cases: { ...c.sections.cases, eyebrow: e.target.value } } }))} /></label>
+              <label><span>主标题</span><input value={config.sections.cases.title} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, cases: { ...c.sections.cases, title: e.target.value } } }))} /></label>
+            </div>
+            <label className="full-width"><span>描述</span><textarea value={config.sections.cases.description} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, cases: { ...c.sections.cases, description: e.target.value } } }))} /></label>
+          </div>
+          <div className="repeat-card">
+            <strong>联系我们</strong>
+            <div className="form-grid">
+              <label><span>角标</span><input value={config.sections.contact.eyebrow} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, contact: { ...c.sections.contact, eyebrow: e.target.value } } }))} /></label>
+              <label><span>主标题</span><input value={config.sections.contact.title} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, contact: { ...c.sections.contact, title: e.target.value } } }))} /></label>
+            </div>
+            <label className="full-width"><span>描述</span><textarea value={config.sections.contact.description} onChange={(e) => patchConfig((c) => ({ ...c, sections: { ...c.sections, contact: { ...c.sections.contact, description: e.target.value } } }))} /></label>
+          </div>
+        </section>
+
+        <section className="panel-section card-surface">
           <div className="section-row"><h2>联系方式</h2><button className="mini-button" onClick={() => addListItem("contacts")} type="button"><Plus size={14} />新增</button></div>
           {config.contacts.map((item) => (
             <div className="repeat-card" key={item.id}>

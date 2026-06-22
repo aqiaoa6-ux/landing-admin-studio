@@ -52,6 +52,12 @@ function sanitizeConfig(input: Partial<SiteConfig> | null | undefined): SiteConf
     ...DEFAULT_SITE_CONFIG,
     ...safeInput,
     hero: { ...DEFAULT_SITE_CONFIG.hero, ...safeInput.hero },
+    sections: {
+      brands: { ...DEFAULT_SITE_CONFIG.sections.brands, ...safeInput.sections?.brands },
+      support: { ...DEFAULT_SITE_CONFIG.sections.support, ...safeInput.sections?.support },
+      cases: { ...DEFAULT_SITE_CONFIG.sections.cases, ...safeInput.sections?.cases },
+      contact: { ...DEFAULT_SITE_CONFIG.sections.contact, ...safeInput.sections?.contact },
+    },
     theme: { ...DEFAULT_SITE_CONFIG.theme, ...safeInput.theme },
     navItems: Array.isArray(safeInput.navItems) ? safeInput.navItems : DEFAULT_SITE_CONFIG.navItems,
     contacts: Array.isArray(safeInput.contacts) ? safeInput.contacts : DEFAULT_SITE_CONFIG.contacts,
