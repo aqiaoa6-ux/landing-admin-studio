@@ -5,8 +5,8 @@ import { api, authStorage } from "../lib/api";
 
 export function AdminLoginPage(): JSX.Element {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("888888");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -33,12 +33,17 @@ export function AdminLoginPage(): JSX.Element {
         <h1>后台登录</h1>
         <p>登录后即可修改联系方式、邀请码、品牌和佣金案例内容。</p>
 
-        <form className="login-form" onSubmit={handleSubmit}>
+        <form autoComplete="off" className="login-form" onSubmit={handleSubmit}>
           <label>
             <span>账号</span>
             <div className="input-shell">
               <UserRound size={16} />
-              <input value={username} onChange={(event) => setUsername(event.target.value)} />
+              <input
+                autoComplete="off"
+                name="admin-username"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+              />
             </div>
           </label>
 
@@ -47,6 +52,8 @@ export function AdminLoginPage(): JSX.Element {
             <div className="input-shell">
               <LockKeyhole size={16} />
               <input
+                autoComplete="new-password"
+                name="admin-password"
                 type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
